@@ -232,7 +232,39 @@ Threading
 
 Threading
 ---------
+Most physical problems, such as moving every chair in fifty floor building to 
+the equivalent building across the street or writing a million-chapter story,
+can be conceived as tasks performed by a single person. Programs often aren't so 
+different. 
 
+Surely, it's possible for a program to go through the full source of a 
+Wikipedia article, then, after finishing that, go to each of those links 
+individually and return the HTML of each of those pages in sequence, looking
+for links in them and visiting them recursively until all unique articles
+connected to the source page have been reached.
+
+Is it possible for your sequential program to do that within the day?
+How about the week?
+
+You might remember that time you called a friend over to help you move your 
+furniture and how each of you taking chairs separately made the whole task go
+faster. You may remember each person on your team claiming some part of your
+project to write documentation for, sharing responsibility. In software, the
+equivalent concept is threading.
+
+Every program you write is at least one process, a task or job undertaken by 
+a computer. Parts of that job could be repetitive or discrete, something you
+could see broken up and worked on by multiple subprograms. A thread is like 
+a worker you've hired to share the work of those repetitive jobs. Modern 
+machines often have several such workers you can hire, called cores.
+
+Threading and parallel programming are increasingly important as the 
+increase of computer hardware speed slows down. Programmers can no longer
+rely on poorly optimized programs to be overlooked and count on the 
+next processor generation to doubled in speed. That doesn't happen anymore.
+With that reality, and more cores than ever appearing in computers,
+programmers cannot afford to ignore the fact that modern machines have more
+than one core.
 
 Spawning Processes
 ------------------
