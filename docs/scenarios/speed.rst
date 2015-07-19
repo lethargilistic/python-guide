@@ -232,47 +232,65 @@ Threading
 
 Threading
 ---------
-Most physical problems, such as moving every chair in fifty floor building to 
+Most physical problems, such as moving every chair in a fifty floor building to
 the equivalent building across the street or writing a million-chapter story,
-can be conceived as tasks performed by a single person. Programs often aren't so 
-different. 
+can be conceived as tasks performed by a single person. Programs often aren't
+so different. 
 
-Surely, it's possible for a program to go through the full source of a 
-Wikipedia article, then, after finishing that, go to each of those links 
+Surely, it's possible for a sequential program to go through the full source
+of a Wikipedia article, then, after finishing that, go to each of those links 
 individually and return the HTML of each of those pages in sequence, looking
-for links in them and visiting them recursively until all unique articles
-connected to the source page have been reached.
+for links in them and visiting them recursively until it's discovered how many
+of Wikipedia's millions of articles are connected to that source.
 
 Is it possible for your sequential program to do that within the day?
-How about the week?
 
-You might remember that time you called a friend over to help you move your 
+You might recall a time you called a friend over to help you move 
 furniture and how each of you taking chairs separately made the whole task go
-faster. You may remember each person on your team claiming some part of your
-project to write documentation for, sharing responsibility. In software, the
-equivalent concept is threading.
-
-Every program you write is at least one process, a task or job undertaken by 
-a computer. Parts of that job could be repetitive or discrete, something you
-could see broken up and worked on by multiple subprograms. A thread is like 
-a worker you've hired to share the work of those repetitive jobs. Modern 
-machines often have several such workers you can hire, called cores.
+faster. You may recall when each person on your development team claimed some
+part of your project to write documentation for, sharing responsibility. In 
+programming, the equivalent concept is threading.
 
 Threading and parallel programming are increasingly important as the 
 increase of computer hardware speed slows down. Programmers can no longer
 rely on poorly optimized programs to be overlooked and count on the 
-next processor generation to doubled in speed. That doesn't happen anymore.
-With that reality, and more cores than ever appearing in computers,
-programmers cannot afford to ignore the fact that modern machines have more
-than one core.
-
+next processor generation to doubled in speed. With that reality, and more 
+cores than ever appearing in computers, programmers cannot afford to ignore 
+the fact that modern machines have more than one core.
+ 
 Spawning Processes
 ------------------
+Every program you write is associated with at least one process, a task or job
+undertaken by a computer. Within that process, the program does some work in 
+which there may be points where if two processes did parts of the job they 
+would not interfere with each other. You do not even need to write a separate
+program; your one program could create threads to share the task, akin to 
+hiring workers. The threads complete their function, may return the result,
+and then can be destroyed.
 
+In Python, this can be done with a ``Process`` from the ``threading`` library.
+
+You should know that you can't do this infinitely. Creating a thread is really
+assigning one of the computer's processing cores to the thread's task instead
+of running the entire process on one core. Modern machines often have several
+such workers you can hire, called cores (e.g. dual-core, quad-core), and 
+hiring more cores than a computer has will provide no extra benefits.
+
+Locks
+-----
+A useful feature of threads is that they share an address space within memory.
+They have access to the same data and can affect each other's work.
+However, since the order of execution of two threads cannot be guaranteed, it
+is possible for them to try to access the same value at the same time, which
+may be very bad. Consider if a person went to deposit money in a bank account
+they share with their spouse. At the very same instant, their spouse accesses
+the account. They both see $10,000. The person deposits $10,000, bringing the
+total to $20,000 and exits. The spouse extracts $10,000, bringing the total to
+$0 and exits, after the person exited. The bank account will have $0 in the 
+end unless this case is handled properly, with locks.
 
 Multiprocessing
 ---------------
-
 
 .. _`PyPy`: http://pypy.org
 .. _`The GIL`: http://wiki.python.org/moin/GlobalInterpreterLock
